@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I think I have a crush on you so have the GREATEST question...</title>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #FF7666; 
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+    }
+    
+    h1 { 
+        color: #ff3366; 
+        margin-bottom: 20px;
+    }
+    
+    img {
+        width: 250px;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        margin-bottom: 30px;
+    }
+
+    /* KUTUYU SABİT TUTUYORUZ */
+    .btn-container { 
+        position: relative; 
+        width: 360px;       
+        height: 60px;       
+        margin: 0 auto;     
+    }
+
+    button {
+        font-size: 18px;
+        padding: 0;         
+        width: 140px;       
+        height: 50px;       
+        line-height: 50px;  
+        cursor: pointer;
+        border: none;
+        border-radius: 50px; 
+        color: white;
+        font-weight: bold;
+        transition: all 0.3s ease; 
+        position: absolute; 
+        bottom: 0;          
+    }
+
+    #btnYes { 
+        background-color: #4CAF50;
+        left: 20px; 
+    }
+
+    #btnNo { 
+        background-color: #f44336;
+        right: 20px; 
+    }
+
+    button:hover {
+        transform: scale(1.05);
+    }
+
+</style>
+</head>
+<body>
+
+    <div id="anaEkran">
+        <h1>Would you go out with me?</h1>
+        
+        <img src="hf5.JPEG" alt="Hayatımın Fotosu">
+        
+        <div class="btn-container">
+            <button id="btnYes" onclick="kabulEtti()">YES</button>
+            <button id="btnNo" onmouseover="kac()" onclick="kac()">NO</button>
+        </div>
+    </div>
+
+    <div id="sonucEkrani" style="display:none;">
+        <h1 style="font-size: 40px;">You had free will, yet you still chose me.</h1>
+        <p style="font-size: 20px;">I think you are deeply in love with me.</p>
+        <img src="https://media.giphy.com/media/T86i6yDyOYz7J6dPhf/giphy.gif" alt="greatest gift" style="width: 300px;">
+    </div>
+
+<script>
+    function kac() {
+        var btnNo = document.getElementById('btnNo');
+        
+        btnNo.style.position = "fixed"; 
+
+        var x = Math.random() * (window.innerWidth - 150);
+        var y = Math.random() * (window.innerHeight - 100);
+        
+        if (x < 0) x = 10;
+        if (y < 0) y = 10;
+
+        btnNo.style.left = x + 'px';
+        btnNo.style.top = y + 'px';
+    }
+
+    function kabulEtti() {
+        // 1. Ekranı yavaşça karart
+        document.body.style.transition = "opacity 1.5s ease-in-out";
+        document.body.style.opacity = "0";
+
+        // 2. 1.5 saniye sonra index.html sayfasına geç
+        setTimeout(function() {
+            window.location.href = "thegreateststory.html";
+        }, 1500);
+    }
+</script>
+
+</body>
+</html>

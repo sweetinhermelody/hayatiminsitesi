@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story of my life</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="background-container">
+        <div class="bg-photo active" id="bg-0" style="background-image: url('hf0.JPEG');"></div>
+        <div class="bg-photo" id="bg-1" style="background-image: url('hs14.JPEG');"></div>
+        <div class="bg-photo" id="bg-2" style="background-image: url('hf2.jpg');"></div>
+        <div class="bg-photo" id="bg-3" style="background-image: url('hf7.JPEG');"></div>
+        <div class="bg-photo" id="bg-4" style="background-image: url('hf11.JPEG');"></div>
+    </div>
+
+    <div class="quiz-overlay" id="quiz-overlay">
+        <div class="quiz-box show" id="quiz-box">
+            
+            <div id="question-container"></div>
+
+            <div id="success-container" class="success-content">
+                <h2 class="success-title">SO SO PRETTTYYY!</h2>
+                <button class="success-btn" onclick="revealMemory()">press me</button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="game-over" id="game-over-screen">
+        <h2>KUSSSTUMMMM<br><span style="font-size:1rem">ya da kusmedim bebismmm</span></h2>
+    </div>
+
+    <section class="content-section" id="section-0">
+        <div class="text-box">
+            <h2>impossible starting</h2>
+            <p>Yazdığım her harfte hissettiğim ayrı heyecanı ne sen, ne ben açıklayabiliriz. Ama hep biliyorum hissettiklerim hiç kalacak. Yeter ki hep var ol biriciğim.</p>
+            <button class="next-q-btn" onclick="loadNextQuestion()">Next gift ➜</button>
+        </div>
+    </section>
+
+    <section class="content-section" id="section-1">
+        <div class="text-box">
+            <h2>The greatest taste...</h2>
+            <p>Ben normalde kendi zevkim dışında tam sevemem. Şu an blend'ime baksana. Ben bile inanamıyorum gerçek olduğuna.</p>
+            <button class="next-q-btn" onclick="loadNextQuestion()">Next gift ➜</button>
+        </div>
+    </section>
+
+    <section class="content-section" id="section-2">
+        <div class="text-box">
+            <h2>Anlatamadım. Asla anlatamayacağım.</h2>
+            <p>Öyle bir hediyesin ki bana tek harfinde mucizeleri yazansın. Düşün bir de ben neler hissediyorum her yazışında.</p>
+            <button class="next-q-btn" onclick="loadNextQuestion()">Next gift ➜</button>
+        </div>
+    </section>
+
+    <section class="content-section" id="section-3">
+        <div class="text-box">
+            <h2>Hem de so so pretty...</h2>
+            <p>Nasıl özel hissettiriyor tek cümlen bilemezsin. Ben her detayına ölüyorum.</p>
+            <button class="next-q-btn" onclick="loadNextQuestion()">Next gift ➜</button>
+        </div>
+    </section>
+
+    <section class="content-section" id="section-4">
+        <div class="text-box">
+            <h2>Lock your phone screen. You are right.</h2>
+            <p>Thank god you exist.</p>
+            <button class="next-q-btn" onclick="finishGame()">a.</button>
+        </div>
+    </section>
+
+
+    <script>
+        // === SORULAR ===
+        const questions = [
+            {
+                text: "Sana yazdığım ilk mesaj neydi?",
+                options: ["efenimmm ben de hemen bi alyimm", "coookk thank you", "No, no hiç gerek yokkk"],
+                correct: 0
+            },
+            {
+                text: "Beni etkilediğin ilk şarkı hangisiydi?",
+                options: ["Good Luck Babe!", "Golden", "Wildflower"],
+                correct: 2
+            },
+            {
+                text: '"a."nın anlamı ne?', 
+                options: ["alfabenin ilk harfi gibi, her şeyden öncesin", "seni tarif edemiyorum, o yüzden a.", "a. desen bile yeter. tarifsizsin"],
+                correct: 2
+            },
+            {
+                text: "Söylemenin en çok hoşuma gittiği kelimen ne?",
+                options: ["kustum", "prettyy", "i love you"],
+                correct: 1
+            },
+            {
+                text: "Bunca soruyu çözmeyi başardın. Peki son olarak sana aldığım hediye ne sence?",
+                options: ["Bileklik", "Airtag", "Kolye"],
+                correct: 0
+            }
+        ];
+
+        let currentLevel = 0;
+        const quizBox = document.getElementById('quiz-box');
+        const qContainer = document.getElementById('question-container');
+        const sContainer = document.getElementById('success-container');
+
+        window.onload = function() {
+            showQuestion();
+        };
+
+        // 1. SORUYU GÖSTER
+        function showQuestion() {
+            sContainer.style.display = 'none';
+            qContainer.style.display = 'block';
+
+            const q = questions[currentLevel];
+            
+            let html = `<h3 style="margin-bottom:20px; font-size:1.5rem; color:#e84393">Soru ${currentLevel + 1}</h3>
+                        <p style="margin-bottom:25px; font-size:1.2rem; line-height:1.4">${q.text}</p>`;
+            
+            q.options.forEach((opt, index) => {
+                html += `<button class="option-btn" onclick="checkAnswer(${index}, ${q.correct})">${opt}</button>`;
+            });
+
+            qContainer.innerHTML = html;
+            
+            const overlay = document.getElementById('quiz-overlay');
+            overlay.classList.remove('hidden');
+            
+            setTimeout(() => {
+                quizBox.classList.add('show');
+            }, 100);
+        }
+
+        // 2. CEVAP KONTROL
+        function checkAnswer(selected, correct) {
+            if (selected === correct) {
+                // DOĞRU
+                qContainer.style.opacity = '0';
+                qContainer.style.transition = 'opacity 0.5s';
+
+                setTimeout(() => {
+                    qContainer.style.display = 'none';
+                    qContainer.style.opacity = '1';
+                    sContainer.style.display = 'flex'; 
+                }, 500);
+                
+            } else {
+                // YANLIŞ
+                document.getElementById('game-over-screen').classList.add('visible');
+                setTimeout(() => {
+                    location.reload();
+                }, 2000);
+            }
+        }
+
+        // 3. ANIYI AÇ
+        function revealMemory() {
+            document.getElementById('quiz-overlay').classList.add('hidden');
+            quizBox.classList.remove('show');
+
+            document.querySelectorAll('.bg-photo').forEach(bg => bg.classList.remove('active'));
+            if(document.getElementById('bg-' + currentLevel)) {
+                document.getElementById('bg-' + currentLevel).classList.add('active');
+            }
+
+            const section = document.getElementById('section-' + currentLevel);
+            section.classList.add('active-section');
+        }
+
+        // 4. SONRAKİ SORUYA GEÇ
+        function loadNextQuestion() {
+            document.getElementById('section-' + currentLevel).classList.remove('active-section');
+            
+            currentLevel++;
+
+            if (currentLevel < questions.length) {
+                setTimeout(() => {
+                    showQuestion();
+                }, 800);
+            } else {
+                alert("Thank you for existing.");
+            }
+        }
+
+        function finishGame() {
+            alert("a.");
+            location.reload();
+        }
+
+    </script>
+</body>
+</html>
