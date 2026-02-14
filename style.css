@@ -1,14 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    /* Mobilde dokununca çıkan mavi/gri kutuyu kaldırır */
+    -webkit-tap-highlight-color: transparent;
+}
 
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #000;
     color: #fff;
     overflow: hidden;
-    
-    /* İŞTE BU SATIRI EKLE: Sayfa açılırken yavaşça belirsin */
+    /* Sayfa açılış animasyonu */
     animation: fadeInPage 1.5s ease-in-out;
 }
 
@@ -52,7 +57,7 @@ body {
 
 .quiz-box {
     background: rgba(255, 255, 255, 0.95);
-    padding: 50px;
+    padding: 30px; /* Mobilde taşmasın diye biraz küçülttüm */
     border-radius: 25px;
     text-align: center;
     max-width: 500px;
@@ -69,20 +74,34 @@ body {
     transform: translateY(0);
 }
 
+/* ŞIK BUTONLARI */
 .option-btn {
     width: 100%; padding: 18px; margin-top: 15px;
     border: 1px solid #ddd;
     background: white; border-radius: 12px;
     cursor: pointer; font-size: 1.1rem;
     font-family: 'Poppins', sans-serif;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     position: relative; overflow: hidden;
+    /* Mobilde yazı seçilmesin */
+    user-select: none; 
+    -webkit-user-select: none;
 }
 
-.option-btn:hover {
+/* SADECE BİLGİSAYARDA (Mouse varsa) RENK DEĞİŞTİR */
+@media (hover: hover) {
+    .option-btn:hover {
+        background: #ffecf2;
+        border-color: #e84393;
+        transform: scale(1.02);
+    }
+}
+
+/* MOBİLDE DOKUNUNCA (Basılı Tutunca) TEPKİ VERSİN */
+.option-btn:active {
     background: #ffecf2;
     border-color: #e84393;
-    transform: scale(1.02);
+    transform: scale(0.98);
 }
 
 /* --- BAŞARI ALANI --- */
@@ -105,6 +124,8 @@ body {
     box-shadow: 0 10px 25px rgba(232, 67, 147, 0.4);
     transition: transform 0.3s;
     animation: pulse 2s infinite;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .success-btn:hover { transform: scale(1.1) rotate(-2deg); }
@@ -116,6 +137,7 @@ body {
     z-index: 10;
     opacity: 0; pointer-events: none;
     transition: opacity 1s ease;
+    padding: 20px; /* Mobilde kenarlara yapışmasın */
 }
 
 .content-section.active-section {
@@ -123,8 +145,8 @@ body {
 }
 
 .text-box {
-    text-align: center; max-width: 700px; padding: 50px;
-    background: rgba(0, 0, 0, 0.5);
+    text-align: center; max-width: 700px; padding: 40px 30px;
+    background: rgba(0, 0, 0, 0.6); /* Biraz daha koyu yaptım okunurluk için */
     border-radius: 30px;
     backdrop-filter: blur(15px);
     border: 1px solid rgba(255,255,255,0.2);
@@ -137,8 +159,8 @@ body {
     opacity: 1; transform: scale(1);
 }
 
-.text-box h2 { font-size: 2.5rem; margin-bottom: 15px; color: #ff9a9e; }
-.text-box p { font-size: 1.2rem; line-height: 1.8; margin-bottom: 30px; }
+.text-box h2 { font-size: 2rem; margin-bottom: 15px; color: #ff9a9e; }
+.text-box p { font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px; }
 
 .next-q-btn {
     padding: 15px 30px;
@@ -146,6 +168,8 @@ body {
     border-radius: 50px; font-weight: 600; cursor: pointer;
     transition: 0.3s;
     box-shadow: 0 5px 15px rgba(255,255,255,0.2);
+    user-select: none;
+    -webkit-user-select: none;
 }
 .next-q-btn:hover { background: #e84393; color: white; transform: translateY(-3px); }
 
@@ -157,12 +181,12 @@ body {
     font-size: 2rem; z-index: 2000;
     opacity: 0; visibility: hidden;
     transition: opacity 0.5s;
+    text-align: center;
+    padding: 20px;
 }
 .game-over.visible { opacity: 1; visibility: visible; }
 
+/* Animasyonlar */
+@keyframes fadeInPage { from { opacity: 0; } to { opacity: 1; } }
 @keyframes popIn { 0% { opacity: 0; transform: scale(0.5); } 100% { opacity: 1; transform: scale(1); } }
 @keyframes pulse { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(232, 67, 147, 0.7); } 70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(232, 67, 147, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(232, 67, 147, 0); } }
-@keyframes fadeInPage {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
